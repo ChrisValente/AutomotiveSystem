@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AutoSystem
+namespace AutoSystem.Forms
 {
-    public partial class FrmLogin : Form
+    public partial class FrmVehicleReg : Form
     {
-        public FrmLogin()
+        public FrmVehicleReg()
         {
             InitializeComponent();
-        }
-
-        private void FrmLogin_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
