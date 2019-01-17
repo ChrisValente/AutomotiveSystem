@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using AutoSystem.Classes;
+
 
 namespace AutoSystem
 {
@@ -20,6 +23,18 @@ namespace AutoSystem
         private void FrmLogin_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DbOperations.LoginOperation(tbxLogin, tbxPassword);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
