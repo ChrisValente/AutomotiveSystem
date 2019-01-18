@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using AutoSystem.Classes;
+using AutoSystem.Forms;
 
 
 namespace AutoSystem
@@ -20,20 +21,26 @@ namespace AutoSystem
             InitializeComponent();
         }
 
-        private void FrmLogin_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnLogin_Click(object sender, EventArgs e)
         {
             try
             {
-                DbOperations.LoginOperation(tbxLogin, tbxPassword);
+                FrmInitial frmInitial = new FrmInitial();
+                DbOperations.LoginOperation(tbxLogin, tbxPassword,frmInitial);
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
+            }
+        }
+
+       
+
+        private void FrmLogin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                //Todo corrigir este evento!
             }
         }
     }
