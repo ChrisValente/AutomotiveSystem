@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Classes\Clear.cs" />
     <Compile Include="Classes\DbOperations.cs" />
+    <Compile Include="Enums\Enumerators.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +109,18 @@
     <Compile Include="Forms\FrmSystemUsers.Designer.cs">
       <DependentUpon>FrmSystemUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmUserReg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmUserReg.Designer.cs">
+      <DependentUpon>FrmUserReg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmUserView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmUserView.Designer.cs">
+      <DependentUpon>FrmUserView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmVehicleReg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +132,18 @@
     <Compile Include="Classes\Validations.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmInitial.resx">
+      <DependentUpon>FrmInitial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmSystemUsers.resx">
+      <DependentUpon>FrmSystemUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmUserReg.resx">
+      <DependentUpon>FrmUserReg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmUserView.resx">
+      <DependentUpon>FrmUserView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -145,6 +170,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\car3D.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User-Files-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User-Files-icon %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Control-Panel-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folder-Group-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sign-add-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Actions-view-process-users-icon.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

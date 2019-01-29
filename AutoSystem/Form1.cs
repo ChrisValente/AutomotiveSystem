@@ -43,5 +43,10 @@ namespace AutoSystem
                 //Todo corrigir este evento!
             }
         }
+
+        private void FrmLogin_Load(object sender, EventArgs e)
+        {
+            tbxPassword.UseSystemPasswordChar = true;
+        }
     }
 }

@@ -16,5 +16,45 @@ namespace AutoSystem.Forms
         {
             InitializeComponent();
         }
+
+        private void btnAtendance_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private void btnControl_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private void btnAccounts_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmSystemUsers frmSystemUsers = new FrmSystemUsers();
+                frmSystemUsers.Show();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

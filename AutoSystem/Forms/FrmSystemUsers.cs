@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+
 namespace AutoSystem.Forms
 {
     public partial class FrmSystemUsers : Form
@@ -15,6 +17,34 @@ namespace AutoSystem.Forms
         public FrmSystemUsers()
         {
             InitializeComponent();
+        }
+
+        private void btnCreateUser_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmUserReg frmUserReg = new FrmUserReg();
+                frmUserReg.Show();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private void btnViewUser_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmUserView frmUserView = new FrmUserView();
+                frmUserView.Show();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
