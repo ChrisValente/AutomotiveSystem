@@ -27,18 +27,18 @@ namespace AutoSystem.Classes
             string selectLogin = $"SELECT LOGIN, SENHA FROM TBUSER WHERE LOGIN = '{login}' AND SENHA = '{password}';";
             string loginReturn, passwordReturn;
 
-            SqlConnection connection = new SqlConnection(connectionString);            
-            SqlCommand cmdSelectLogin = new SqlCommand(selectLogin,connection);
-                        
+            SqlConnection connection = new SqlConnection(connectionString);
+            SqlCommand cmdSelectLogin = new SqlCommand(selectLogin, connection);
+
             connection.Open();
             SqlDataReader loginReader = cmdSelectLogin.ExecuteReader();
-            
+
             if (loginReader.Read())
             {
                 loginReturn = loginReader[0].ToString();
                 passwordReturn = loginReader[1].ToString();
 
-                if (string.Equals(password,passwordReturn) == true )
+                if (string.Equals(password, passwordReturn) == true)
                 {
                     FrmInitial frmInitial = new FrmInitial();
                     frmInitial.Show();
@@ -50,7 +50,7 @@ namespace AutoSystem.Classes
                     passwordField.Text = string.Empty;
                     loginField.Focus();
                 }
-                
+
             }
             else
             {
@@ -59,12 +59,12 @@ namespace AutoSystem.Classes
                 passwordField.Text = string.Empty;
                 loginField.Focus();
             }
-            
+
         }
 
         public static void InsertNewUser(string userNameField, string userLastNameField,
-                               string userLoginField, string userPasswordField,  string userStatusField, string userFunctionField)
-        {     
+                               string userLoginField, string userPasswordField, string userStatusField, string userFunctionField)
+        {
 
             string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
 
@@ -107,7 +107,7 @@ namespace AutoSystem.Classes
             }
             finally
             {
-                if (sqlConnection.State != ConnectionState.Closed) { sqlConnection.Close(); }               
+                if (sqlConnection.State != ConnectionState.Closed) { sqlConnection.Close(); }
             }
         }
 
@@ -134,9 +134,63 @@ namespace AutoSystem.Classes
             if (sqlConnection.State != ConnectionState.Closed) { sqlConnection.Close(); }
         }
 
-        public static void DeleteUserSystem()
+        public static void DeleteUserSystem(DataGridView grid)
         {
-            //todo: criar um delete para o usuário selecionado
+            DialogResult dr = new DialogResult();
+            dr = MessageBox.Show("Deseja realmente excluir este usuário?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (dr == DialogResult.Yes)
+            {
+                string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
+
+                string getName = grid.CurrentRow.Cells["NOME"].Value.ToString();
+                string getLastName = grid.CurrentRow.Cells["SOBRENOME"].Value.ToString();
+                string getLogin = grid.CurrentRow.Cells["LOGIN"].Value.ToString();
+                string selectPK = $"SELECT IDUSER FROM TBUSER WHERE NOME = '{getName}' AND SOBRENOME = '{getLastName}' AND LOGIN = '{getLogin}'";
+                int pk;
+
+                SqlConnection connection = new SqlConnection(connectionString);
+                SqlCommand cmdSelectPk = new SqlCommand(selectPK, connection);
+                connection.Open();
+
+                pk = Convert.ToInt32(cmdSelectPk.ExecuteScalar());
+
+
+                string deleteUser = $"DELETE FROM TBUSER WHERE IDUSER = '{pk}'";
+                SqlCommand cmdDeleteUser = new SqlCommand(deleteUser, connection);
+                SqlTransaction transaction = null;
+
+
+                try
+                {
+                    transaction = connection.BeginTransaction();
+                    cmdDeleteUser.Transaction = transaction;
+                    cmdDeleteUser.ExecuteScalar();
+                    transaction.Commit();
+                    MessageBox.Show("Usuário deletado com sucesso!", "Finalizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    if (transaction != null)
+                    {
+                        transaction.Rollback();
+                    }
+                    MessageBox.Show("Não foi possível completar a operação!", "Erro ao salvar dados!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw new Exception(ex.Message);
+
+                }
+                finally
+                {
+                    GetUsersData(grid);
+                    if (connection.State != ConnectionState.Closed) { connection.Close(); }
+                }
+            }
+
+        }
+
+        public static void UpdateUserStatus(DataGridView grid)
+        {
+            
         }
     }
 }
