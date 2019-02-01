@@ -185,6 +185,7 @@
             this.Name = "FrmUserReg";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cadastro de usuário do sistema";
+            this.Load += new System.EventHandler(this.FrmUserReg_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

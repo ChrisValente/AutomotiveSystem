@@ -61,8 +61,11 @@ namespace AutoSystem.Forms
         {
             try
             {
-                MessageBox.Show("Funfa");
-                //todo: Acrescentar método para alterar status
+                //FrmUserStatus frmUserStatus = new FrmUserStatus();
+                //frmUserStatus.Show();
+                string teste = "ativo";
+                DbOperations.UpdateUserStatus(dgvUsers,teste); 
+                //todo: VERIFICAR COMO TRAZER O VALOR DO STATUS DO OUTRO FORMULARIO PARA ESTE FORM
             }
             catch (Exception ex)
             {

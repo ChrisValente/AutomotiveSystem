@@ -65,5 +65,10 @@ namespace AutoSystem.Forms
                 throw new Exception(ex.Message);
             }
         }
+
+        private void FrmUserReg_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

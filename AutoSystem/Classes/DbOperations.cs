@@ -175,7 +175,7 @@ namespace AutoSystem.Classes
                     {
                         transaction.Rollback();
                     }
-                    MessageBox.Show("Não foi possível completar a operação!", "Erro ao salvar dados!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Não foi possível completar a operação!", "Erro ao deletar dados!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     throw new Exception(ex.Message);
 
                 }
@@ -188,9 +188,52 @@ namespace AutoSystem.Classes
 
         }
 
-        public static void UpdateUserStatus(DataGridView grid)
+        public static void UpdateUserStatus(DataGridView grid, string status)
         {
-            
+            string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
+
+            string getName = grid.CurrentRow.Cells["NOME"].Value.ToString();
+            string getLastName = grid.CurrentRow.Cells["SOBRENOME"].Value.ToString();
+            string getLogin = grid.CurrentRow.Cells["LOGIN"].Value.ToString();
+
+            string selectPk = $"SELECT IDUSER FROM TBUSER WHERE NOME = '{getName}' AND SOBRENOME = '{getLastName}' AND LOGIN = '{getLogin}'";                       
+            int pk;
+
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand cmdSelectPk = new SqlCommand(selectPk, sqlConnection);
+            sqlConnection.Open();
+
+            pk = Convert.ToInt32(cmdSelectPk.ExecuteScalar());
+
+            string updateTable = $"UPDATE TBUSER SET STATUS = '{status}' WHERE IDUSER = '{pk}'";
+            SqlCommand cmdUpdate = new SqlCommand(updateTable, sqlConnection);
+            SqlTransaction transaction = null;
+
+            try
+            {
+                transaction = sqlConnection.BeginTransaction();
+                cmdUpdate.Transaction = transaction;
+                cmdUpdate.ExecuteScalar();
+                transaction.Commit();
+                MessageBox.Show("Status atualizado com sucesso!", "Finalizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                if (transaction != null)
+                {
+                    transaction.Rollback();
+                }
+                MessageBox.Show("Não foi possível completar a operação!", "Erro ao atualizar dados!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                GetUsersData(grid);
+                if (sqlConnection.State != ConnectionState.Closed) {sqlConnection.Close();}
+            }
+
+
         }
+
     }
 }
