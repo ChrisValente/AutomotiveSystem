@@ -23,6 +23,7 @@ namespace AutoSystem.Forms
         {
             try
             {
+                //todo = criar validação de usuário para liberar acesso a criação de novos usuários
                 FrmUserReg frmUserReg = new FrmUserReg();
                 frmUserReg.Show();
             }
@@ -37,6 +38,7 @@ namespace AutoSystem.Forms
         {
             try
             {
+                
                 FrmUserView frmUserView = new FrmUserView();
                 frmUserView.Show();
             }

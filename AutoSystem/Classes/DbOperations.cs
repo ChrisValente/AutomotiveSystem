@@ -24,8 +24,11 @@ namespace AutoSystem.Classes
             string login = loginField.Text;
             string password = passwordField.Text;
             string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
-            string selectLogin = $"SELECT LOGIN, SENHA FROM TBUSER WHERE LOGIN = '{login}' AND SENHA = '{password}';";
-            string loginReturn, passwordReturn;
+            string selectLogin = $"SELECT LOGIN, SENHA, STATUS FROM TBUSER WHERE LOGIN = '{login}' AND SENHA = '{password}';";
+            string loginReturn, passwordReturn, statusReturn;
+            string statusActive = "Ativo";
+            string statusAdmin = "Admin";
+            string statusMaster = "Master";
 
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand cmdSelectLogin = new SqlCommand(selectLogin, connection);
@@ -37,11 +40,24 @@ namespace AutoSystem.Classes
             {
                 loginReturn = loginReader[0].ToString();
                 passwordReturn = loginReader[1].ToString();
+                statusReturn = loginReader[2].ToString();
 
                 if (string.Equals(password, passwordReturn) == true)
                 {
-                    FrmInitial frmInitial = new FrmInitial();
-                    frmInitial.Show();
+                    if (string.Equals(statusActive, statusReturn) == true || string.Equals(statusAdmin,statusReturn) == true 
+                        || string.Equals(statusMaster, statusReturn)==true)
+                    {
+                        FrmInitial frmInitial = new FrmInitial();
+                        frmInitial.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Usuário inativo", "Atenção!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        loginField.Text = string.Empty;
+                        passwordField.Text = string.Empty;
+                        loginField.Focus();
+                    }
+                    
                 }
                 else
                 {

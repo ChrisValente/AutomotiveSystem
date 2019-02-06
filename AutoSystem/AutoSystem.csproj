@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Classes\Clear.cs" />
     <Compile Include="Classes\DbOperations.cs" />
+    <Compile Include="Classes\Global.cs" />
     <Compile Include="Enums\Enumerators.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -78,6 +79,12 @@
     </Compile>
     <Compile Include="Forms\FrmInitial.Designer.cs">
       <DependentUpon>FrmInitial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmInternalControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmInternalControl.Designer.cs">
+      <DependentUpon>FrmInternalControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmPartsReg.cs">
       <SubType>Form</SubType>
@@ -142,6 +149,12 @@
     <EmbeddedResource Include="Forms\FrmInitial.resx">
       <DependentUpon>FrmInitial.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmInternalControl.resx">
+      <DependentUpon>FrmInternalControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmPartsReg.resx">
+      <DependentUpon>FrmPartsReg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmSystemUsers.resx">
       <DependentUpon>FrmSystemUsers.cs</DependentUpon>
     </EmbeddedResource>
@@ -153,6 +166,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmUserView.resx">
       <DependentUpon>FrmUserView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmVehicleReg.resx">
+      <DependentUpon>FrmVehicleReg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -47,16 +47,18 @@
             // 
             // btnUserStatus
             // 
+            this.btnUserStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUserStatus.Location = new System.Drawing.Point(519, 335);
             this.btnUserStatus.Name = "btnUserStatus";
             this.btnUserStatus.Size = new System.Drawing.Size(75, 23);
             this.btnUserStatus.TabIndex = 1;
-            this.btnUserStatus.Text = "Status";
+            this.btnUserStatus.Text = "Definir ";
             this.btnUserStatus.UseVisualStyleBackColor = true;
             this.btnUserStatus.Click += new System.EventHandler(this.btnUserStatus_Click);
             // 
             // btnUserDelete
             // 
+            this.btnUserDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUserDelete.Location = new System.Drawing.Point(428, 335);
             this.btnUserDelete.Name = "btnUserDelete";
             this.btnUserDelete.Size = new System.Drawing.Size(75, 23);

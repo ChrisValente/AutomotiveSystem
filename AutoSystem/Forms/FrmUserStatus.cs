@@ -14,31 +14,25 @@ namespace AutoSystem.Forms
 {
     public partial class FrmUserStatus : Form
     {
-        
+        string getCbxStatus;
 
         public FrmUserStatus()
         {
             InitializeComponent();
             cbxUserStatus.DataSource = Enum.GetNames(typeof(UserStatus));
             cbxUserStatus.SelectedIndex = -1;
-
-            //todo: acrescentar o método de update
-        }
-
-        internal void LoadOrders(string name, string lastName, string login)
-        {
-            
         }
 
         private void btnStatusSave_Click(object sender, EventArgs e)
         {
             try
             {
-                FrmUserView frmUserView = new FrmUserView();
-                
-               
-                // código para salvar o update de status
-                
+                if (cbxUserStatus.SelectedIndex != -1)
+                {
+                    getCbxStatus = cbxUserStatus.Text;
+                    Global.GlobalUserStatus.Status = getCbxStatus;
+                    this.Close();                    
+                }               
             }
             catch (Exception ex)
             {

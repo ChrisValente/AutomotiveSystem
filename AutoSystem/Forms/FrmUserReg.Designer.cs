@@ -136,6 +136,7 @@
             // 
             // cbxUserStatus
             // 
+            this.cbxUserStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbxUserStatus.FormattingEnabled = true;
             this.cbxUserStatus.Location = new System.Drawing.Point(63, 107);
             this.cbxUserStatus.Name = "cbxUserStatus";
@@ -144,6 +145,7 @@
             // 
             // btnUserSave
             // 
+            this.btnUserSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUserSave.Location = new System.Drawing.Point(545, 160);
             this.btnUserSave.Name = "btnUserSave";
             this.btnUserSave.Size = new System.Drawing.Size(69, 23);
@@ -154,6 +156,7 @@
             // 
             // btnUserClearForm
             // 
+            this.btnUserClearForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUserClearForm.Location = new System.Drawing.Point(458, 160);
             this.btnUserClearForm.Name = "btnUserClearForm";
             this.btnUserClearForm.Size = new System.Drawing.Size(69, 23);

@@ -9,6 +9,8 @@ namespace AutoSystem.Enums
     enum UserStatus
     {
         Ativo,
-        Inativo
+        Inativo,
+        Admin,
+        Master
     }
 }

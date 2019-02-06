@@ -13,9 +13,11 @@ namespace AutoSystem.Forms
 {
     public partial class FrmUserView : Form
     {
+        
+
         public FrmUserView()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         private void FrmUserView_Load(object sender, EventArgs e)
@@ -26,7 +28,6 @@ namespace AutoSystem.Forms
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
         }
@@ -35,11 +36,11 @@ namespace AutoSystem.Forms
         {
             try
             {
-                //todo: Alterar Status dE ativo para inativo
+                string status = Global.GlobalUserStatus.Status;
+                DbOperations.UpdateUserStatus(dgvUsers, status);               
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
         }
@@ -52,7 +53,6 @@ namespace AutoSystem.Forms
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
         }
@@ -60,16 +60,12 @@ namespace AutoSystem.Forms
         private void dgvUsers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             try
-            {
-                //FrmUserStatus frmUserStatus = new FrmUserStatus();
-                //frmUserStatus.Show();
-                string teste = "ativo";
-                DbOperations.UpdateUserStatus(dgvUsers,teste); 
-                //todo: VERIFICAR COMO TRAZER O VALOR DO STATUS DO OUTRO FORMULARIO PARA ESTE FORM
+            {                
+                FrmUserStatus frmUserStatus = new FrmUserStatus();
+                frmUserStatus.Show();
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
             

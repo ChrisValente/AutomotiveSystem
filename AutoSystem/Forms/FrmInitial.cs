@@ -34,7 +34,8 @@ namespace AutoSystem.Forms
         {
             try
             {
-
+                FrmInternalControl frmInternal = new FrmInternalControl();
+                frmInternal.Show();
             }
             catch (Exception ex)
             {
