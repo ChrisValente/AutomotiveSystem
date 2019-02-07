@@ -255,7 +255,7 @@ namespace AutoSystem.Classes
         {
             string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
 
-            //todo: criar restante do insert
+            //todo: criar restante do insert.
         }
 
     }
