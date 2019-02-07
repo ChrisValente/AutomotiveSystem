@@ -27,7 +27,28 @@ namespace AutoSystem.Classes
             }
         }
 
+        
+        public static void ClearTextBoxes(Control controls)
+        {
+            foreach (Control ctl in controls.Controls)
+            {
+                if (ctl is TextBox)
+                {
+                    ((TextBox)ctl).Clear();
+                }
+            }
+        }
 
+        public static void ClearComboBoxes(Control controls)
+        {
+            foreach (Control ctl in controls.Controls)
+            {
+                if (ctl is ComboBox)
+                {
+                    ((ComboBox)ctl).SelectedIndex = -1;
+                }
+            }
+        }
 
     }
 }

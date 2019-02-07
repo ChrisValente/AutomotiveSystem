@@ -26,7 +26,30 @@ namespace AutoSystem.Forms
             }
             catch (Exception ex)
             {
+                throw new Exception(ex.Message);
+            }
+        }
 
+        private void btnStock_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private void btnServices_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
                 throw new Exception(ex.Message);
             }
         }

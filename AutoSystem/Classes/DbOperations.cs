@@ -251,5 +251,12 @@ namespace AutoSystem.Classes
 
         }
 
+        public static void InsertNewVehicle(string type, string brand, string model, string version)
+        {
+            string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
+
+            //todo: criar restante do insert
+        }
+
     }
 }

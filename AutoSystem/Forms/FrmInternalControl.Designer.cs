@@ -53,6 +53,7 @@
             this.btnStock.TabIndex = 1;
             this.btnStock.Text = "Estoque";
             this.btnStock.UseVisualStyleBackColor = true;
+            this.btnStock.Click += new System.EventHandler(this.btnStock_Click);
             // 
             // btnServices
             // 
@@ -63,6 +64,7 @@
             this.btnServices.TabIndex = 2;
             this.btnServices.Text = "Serviços";
             this.btnServices.UseVisualStyleBackColor = true;
+            this.btnServices.Click += new System.EventHandler(this.btnServices_Click);
             // 
             // FrmInternalControl
             // 
@@ -73,6 +75,7 @@
             this.Controls.Add(this.btnStock);
             this.Controls.Add(this.btnVehicle);
             this.Name = "FrmInternalControl";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmInternalControl";
             this.ResumeLayout(false);
 

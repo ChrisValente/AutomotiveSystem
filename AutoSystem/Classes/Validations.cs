@@ -27,6 +27,37 @@ namespace AutoSystem
         }
 
 
+        public static void EmptyTextBoxes(Control controls)
+        {
+            foreach (Control ctl in controls.Controls)
+            {
+                if (ctl is TextBox)
+                {
+                    if (((TextBox)ctl).Text == string.Empty)
+                    {
+                        MessageBox.Show("Todos os campos são de preenchimento obrigatório!", "Atenção!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        break; ;
+                    }    
+                                   
+                }
+            }
+        }
+
+        public static void EmptyComboBoxes(Control controls)
+        {
+            foreach (Control ctl in controls.Controls)
+            {
+                if (ctl is ComboBox)
+                {
+                    if (((ComboBox)ctl).SelectedIndex == -1)
+                    {
+                        MessageBox.Show("Todos os campos são de preenchimento obrigatório!", "Atenção!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        break;
+                    }
+                }
+            }
+        }
+
 
 
 

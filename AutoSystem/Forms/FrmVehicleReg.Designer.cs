@@ -46,14 +46,14 @@
             this.tbxVersion.Location = new System.Drawing.Point(319, 69);
             this.tbxVersion.Name = "tbxVersion";
             this.tbxVersion.Size = new System.Drawing.Size(164, 20);
-            this.tbxVersion.TabIndex = 1;
+            this.tbxVersion.TabIndex = 7;
             // 
             // tbxModel
             // 
             this.tbxModel.Location = new System.Drawing.Point(82, 69);
             this.tbxModel.Name = "tbxModel";
             this.tbxModel.Size = new System.Drawing.Size(149, 20);
-            this.tbxModel.TabIndex = 2;
+            this.tbxModel.TabIndex = 5;
             // 
             // cbxBrand
             // 
@@ -69,9 +69,10 @@
             this.btnSave.Location = new System.Drawing.Point(408, 131);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 4;
+            this.btnSave.TabIndex = 8;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnClear
             // 
@@ -79,9 +80,10 @@
             this.btnClear.Location = new System.Drawing.Point(319, 131);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
-            this.btnClear.TabIndex = 5;
+            this.btnClear.TabIndex = 9;
             this.btnClear.Text = "Limpar";
             this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // label1
             // 
@@ -89,7 +91,7 @@
             this.label1.Location = new System.Drawing.Point(22, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(31, 13);
-            this.label1.TabIndex = 6;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Tipo:";
             // 
             // label2
@@ -98,7 +100,7 @@
             this.label2.Location = new System.Drawing.Point(272, 21);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(40, 13);
-            this.label2.TabIndex = 7;
+            this.label2.TabIndex = 2;
             this.label2.Text = "Marca:";
             // 
             // label3
@@ -107,7 +109,7 @@
             this.label3.Location = new System.Drawing.Point(22, 72);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
-            this.label3.TabIndex = 8;
+            this.label3.TabIndex = 4;
             this.label3.Text = "Modelo:";
             // 
             // label4
@@ -116,7 +118,7 @@
             this.label4.Location = new System.Drawing.Point(272, 72);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(43, 13);
-            this.label4.TabIndex = 9;
+            this.label4.TabIndex = 6;
             this.label4.Text = "Versão:";
             // 
             // cbxType
@@ -125,7 +127,8 @@
             this.cbxType.Location = new System.Drawing.Point(82, 18);
             this.cbxType.Name = "cbxType";
             this.cbxType.Size = new System.Drawing.Size(149, 21);
-            this.cbxType.TabIndex = 10;
+            this.cbxType.TabIndex = 1;
+            this.cbxType.SelectedIndexChanged += new System.EventHandler(this.cbxType_SelectedIndexChanged);
             // 
             // FrmVehicleReg
             // 
