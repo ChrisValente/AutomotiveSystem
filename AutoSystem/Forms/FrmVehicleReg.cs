@@ -27,7 +27,17 @@ namespace AutoSystem.Forms
             {
                 Validations.EmptyComboBoxes(this);
                 Validations.EmptyTextBoxes(this);
+                string type = cbxType.Text.ToUpper();
+                string brand = cbxBrand.Text.ToUpper();
+                string model = tbxModel.Text.ToUpper();
+                string version = tbxVersion.Text.ToUpper();
+
+                DbOperations.InsertNewVehicle(type, brand, model, version);
+                Clear.ClearComboBoxes(this);
+                Clear.ClearTextBoxes(this);
+                cbxType.Focus();
                 //todo: CORRIGIR ERRO DE DOIS RETORNOS SEGUIDOS
+                // Criar tabela para exibir veiculos cadastrados e metodo para deletar
             }
             catch (Exception ex)
             {

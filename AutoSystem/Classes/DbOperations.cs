@@ -110,6 +110,7 @@ namespace AutoSystem.Classes
                 sqlTransaction.Commit();
 
                 MessageBox.Show("Usuário criado com sucesso!", "Finalizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
             }
             catch (Exception ex)
             {
@@ -254,8 +255,42 @@ namespace AutoSystem.Classes
         public static void InsertNewVehicle(string type, string brand, string model, string version)
         {
             string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
+            string insertVehicle = "INSERT INTO VEICULOSDB (TIPO, MARCA, MODELO, VERSAO) VALUES(@TIPO, @MARCA, @MODELO, @VERSAO);";
 
-            //todo: criar restante do insert.
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand cmdInsert = new SqlCommand(insertVehicle, sqlConnection);
+            sqlConnection.Open();
+
+            cmdInsert.Parameters.AddWithValue("@TIPO",type);
+            cmdInsert.Parameters.AddWithValue("@MARCA", brand);
+            cmdInsert.Parameters.AddWithValue("@MODELO", model);
+            cmdInsert.Parameters.AddWithValue("@VERSAO", version);
+
+            SqlTransaction transaction = null;
+
+            try
+            {
+                transaction = sqlConnection.BeginTransaction();
+                cmdInsert.Transaction = transaction;
+
+                cmdInsert.ExecuteScalar();
+                transaction.Commit();
+                MessageBox.Show("Veículo inserido com sucesso!", "Finalizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                if (transaction != null)
+                {
+                    transaction.Rollback();
+                }
+                MessageBox.Show("Não foi possível completar a operação!", "Erro ao salvar dados!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                if (sqlConnection.State != ConnectionState.Closed) { sqlConnection.Close(); }
+            }
+
         }
 
     }
