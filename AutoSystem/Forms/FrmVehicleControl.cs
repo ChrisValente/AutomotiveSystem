@@ -7,18 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AutoSystem.Classes;
 using AutoSystem.Enums;
+using AutoSystem.Classes;
 
 namespace AutoSystem.Forms
 {
-    public partial class FrmVehicleReg : Form
+    public partial class FrmVehicleControl : Form
     {
-        public FrmVehicleReg()
+        public FrmVehicleControl()
         {
             InitializeComponent();
             cbxType.DataSource = Enum.GetNames(typeof(VehicleTypes));
             cbxType.SelectedIndex = -1;
+            cbxSelectVehicleType.DataSource = Enum.GetNames(typeof(VehicleTypes));
+            cbxSelectVehicleType.SelectedIndex = -1;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -33,11 +35,11 @@ namespace AutoSystem.Forms
                 string version = tbxVersion.Text.ToUpper();
 
                 DbOperations.InsertNewVehicle(type, brand, model, version);
-                Clear.ClearComboBoxes(this);
-                Clear.ClearTextBoxes(this);
+                Clear.ClearComboBoxes(this.tabReg);
+                Clear.ClearTextBoxes(this.tabReg);
+                cbxType.Focus();
                 
                 //todo: CORRIGIR ERRO DE DOIS RETORNOS SEGUIDOS
-                // Criar tabela para exibir veiculos cadastrados e metodo para deletar.
             }
             catch (Exception ex)
             {
@@ -49,8 +51,8 @@ namespace AutoSystem.Forms
         {
             try
             {
-                Clear.ClearTextBoxes(this);
-                Clear.ClearComboBoxes(this);
+                Clear.ClearTextBoxes(this.tabReg);
+                Clear.ClearComboBoxes(this.tabReg);
                 cbxType.Focus();
             }
             catch (Exception ex)
@@ -70,6 +72,49 @@ namespace AutoSystem.Forms
             {
                 cbxBrand.DataSource = Enum.GetNames(typeof(BikesBrands));
                 cbxBrand.SelectedIndex = -1;
+            }
+        }
+
+        private void tabConsult_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                cbxSelectVehicleType.DataSource = Enum.GetNames(typeof(VehicleTypes));
+                cbxSelectVehicleType.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
+        private void btnShow_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string type = cbxSelectVehicleType.Text;
+                DbOperations.GetVehicleData(dgvShowCars, type);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private void BtnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DbOperations.DeleteVehicle(dgvShowCars);
+                string type = cbxSelectVehicleType.Text;
+                DbOperations.GetVehicleData(dgvShowCars, type);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
             }
         }
     }

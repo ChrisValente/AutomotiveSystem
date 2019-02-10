@@ -134,6 +134,12 @@
     <Compile Include="Forms\FrmUserView.Designer.cs">
       <DependentUpon>FrmUserView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmVehicleControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmVehicleControl.Designer.cs">
+      <DependentUpon>FrmVehicleControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmVehicleReg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmUserView.resx">
       <DependentUpon>FrmUserView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmVehicleControl.resx">
+      <DependentUpon>FrmVehicleControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmVehicleReg.resx">
       <DependentUpon>FrmVehicleReg.cs</DependentUpon>

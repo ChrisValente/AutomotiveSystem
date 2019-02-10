@@ -21,7 +21,7 @@ namespace AutoSystem.Forms
         {
             try
             {
-                FrmVehicleReg frmVehicle = new FrmVehicleReg();
+                FrmVehicleControl frmVehicle = new FrmVehicleControl();
                 frmVehicle.Show();
             }
             catch (Exception ex)

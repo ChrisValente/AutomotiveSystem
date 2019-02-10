@@ -44,8 +44,8 @@ namespace AutoSystem.Classes
 
                 if (string.Equals(password, passwordReturn) == true)
                 {
-                    if (string.Equals(statusActive, statusReturn) == true || string.Equals(statusAdmin,statusReturn) == true 
-                        || string.Equals(statusMaster, statusReturn)==true)
+                    if (string.Equals(statusActive, statusReturn) == true || string.Equals(statusAdmin, statusReturn) == true
+                        || string.Equals(statusMaster, statusReturn) == true)
                     {
                         FrmInitial frmInitial = new FrmInitial();
                         frmInitial.Show();
@@ -57,7 +57,7 @@ namespace AutoSystem.Classes
                         passwordField.Text = string.Empty;
                         loginField.Focus();
                     }
-                    
+
                 }
                 else
                 {
@@ -110,7 +110,7 @@ namespace AutoSystem.Classes
                 sqlTransaction.Commit();
 
                 MessageBox.Show("Usuário criado com sucesso!", "Finalizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+
             }
             catch (Exception ex)
             {
@@ -213,7 +213,7 @@ namespace AutoSystem.Classes
             string getLastName = grid.CurrentRow.Cells["SOBRENOME"].Value.ToString();
             string getLogin = grid.CurrentRow.Cells["LOGIN"].Value.ToString();
 
-            string selectPk = $"SELECT IDUSER FROM TBUSER WHERE NOME = '{getName}' AND SOBRENOME = '{getLastName}' AND LOGIN = '{getLogin}'";                       
+            string selectPk = $"SELECT IDUSER FROM TBUSER WHERE NOME = '{getName}' AND SOBRENOME = '{getLastName}' AND LOGIN = '{getLogin}'";
             int pk;
 
             SqlConnection sqlConnection = new SqlConnection(connectionString);
@@ -246,7 +246,7 @@ namespace AutoSystem.Classes
             finally
             {
                 GetUsersData(grid);
-                if (sqlConnection.State != ConnectionState.Closed) {sqlConnection.Close();}
+                if (sqlConnection.State != ConnectionState.Closed) { sqlConnection.Close(); }
             }
 
 
@@ -261,7 +261,7 @@ namespace AutoSystem.Classes
             SqlCommand cmdInsert = new SqlCommand(insertVehicle, sqlConnection);
             sqlConnection.Open();
 
-            cmdInsert.Parameters.AddWithValue("@TIPO",type);
+            cmdInsert.Parameters.AddWithValue("@TIPO", type);
             cmdInsert.Parameters.AddWithValue("@MARCA", brand);
             cmdInsert.Parameters.AddWithValue("@MODELO", model);
             cmdInsert.Parameters.AddWithValue("@VERSAO", version);
@@ -289,6 +289,77 @@ namespace AutoSystem.Classes
             finally
             {
                 if (sqlConnection.State != ConnectionState.Closed) { sqlConnection.Close(); }
+            }
+
+        }
+
+        public static void GetVehicleData(DataGridView grid, string type)
+        {
+            string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
+            string selectData = $"SELECT MARCA, MODELO, VERSAO FROM VEICULOSDB WHERE TIPO = '{type}';";
+
+            SqlConnection connection = new SqlConnection(connectionString);
+            SqlCommand cmdSelect = new SqlCommand(selectData, connection);
+            SqlDataAdapter adapter = new SqlDataAdapter(cmdSelect);
+            DataSet dataSet = new DataSet();
+
+            connection.Open();
+
+            cmdSelect.ExecuteNonQuery();
+            adapter.SelectCommand = cmdSelect;
+            adapter.Fill(dataSet);
+
+            grid.DataSource = dataSet;
+            grid.DataMember = dataSet.Tables[0].TableName;
+
+            if (connection.State != ConnectionState.Closed) { connection.Close(); }
+        }
+
+        public static void DeleteVehicle(DataGridView grid)
+        {
+            DialogResult result = new DialogResult();
+            result = MessageBox.Show("Deseja realmente deletar este veículo?", "Atenção!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
+
+                string brand = grid.CurrentRow.Cells["MARCA"].Value.ToString();
+                string model = grid.CurrentRow.Cells["MODELO"].Value.ToString();
+                string version = grid.CurrentRow.Cells["VERSAO"].Value.ToString();
+                string selectPk = $"SELECT IDVEIDB FROM VEICULOSDB WHERE MARCA = '{brand}'AND MODELO = '{model}' AND VERSAO = '{version}';";
+                int pk;
+
+                SqlConnection connection = new SqlConnection(connectionString);
+                SqlCommand cmdSelectPk = new SqlCommand(selectPk, connection);
+                SqlTransaction transaction = null;
+
+                connection.Open();
+
+                pk = Convert.ToInt32(cmdSelectPk.ExecuteScalar());
+                string deleteVehicle = $"DELETE FROM VEICULOSDB WHERE IDVEIDB = '{pk}';";
+                SqlCommand cmdDeleteVehicle = new SqlCommand(deleteVehicle, connection);
+
+                try
+                {
+                    transaction = connection.BeginTransaction();
+                    cmdDeleteVehicle.Transaction = transaction;
+                    cmdDeleteVehicle.ExecuteScalar();
+                    transaction.Commit();
+                    MessageBox.Show("Usuário deletado com sucesso!", "Finalizado", MessageBoxButtons.OK, MessageBoxIcon.Information);                   
+                }
+                catch (Exception ex)
+                {
+                    if (transaction != null)
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show("Não foi possível completar a operação!", "Erro ao deletar dados!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    throw new Exception(ex.Message);
+                }
+                finally
+                {
+                    if (connection.State != ConnectionState.Closed) { connection.Close(); }
+                }
             }
 
         }
