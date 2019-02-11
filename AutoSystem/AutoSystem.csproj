@@ -110,6 +110,18 @@
     <Compile Include="Forms\FrmStock.Designer.cs">
       <DependentUpon>FrmStock.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmStockUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmStockUpdate.Designer.cs">
+      <DependentUpon>FrmStockUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmStockView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmStockView.Designer.cs">
+      <DependentUpon>FrmStockView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmSystemUsers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,12 +152,6 @@
     <Compile Include="Forms\FrmVehicleControl.Designer.cs">
       <DependentUpon>FrmVehicleControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FrmVehicleReg.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmVehicleReg.Designer.cs">
-      <DependentUpon>FrmVehicleReg.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\Validations.cs" />
@@ -161,6 +167,15 @@
     <EmbeddedResource Include="Forms\FrmPartsReg.resx">
       <DependentUpon>FrmPartsReg.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmStock.resx">
+      <DependentUpon>FrmStock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmStockUpdate.resx">
+      <DependentUpon>FrmStockUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmStockView.resx">
+      <DependentUpon>FrmStockView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmSystemUsers.resx">
       <DependentUpon>FrmSystemUsers.cs</DependentUpon>
     </EmbeddedResource>
@@ -175,9 +190,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmVehicleControl.resx">
       <DependentUpon>FrmVehicleControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmVehicleReg.resx">
-      <DependentUpon>FrmVehicleReg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

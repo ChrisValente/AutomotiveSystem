@@ -34,7 +34,8 @@ namespace AutoSystem.Forms
         {
             try
             {
-
+                FrmStock stock = new FrmStock();
+                stock.Show();
             }
             catch (Exception ex)
             {

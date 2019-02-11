@@ -16,5 +16,33 @@ namespace AutoSystem.Forms
         {
             InitializeComponent();
         }
+
+        private void btnConsult_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmStockView stockView = new FrmStockView();
+                stockView.Show();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmStockUpdate stockUpdate = new FrmStockUpdate();
+                stockUpdate.Show();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
