@@ -20,6 +20,11 @@ namespace AutoSystem.Enums
         Motocicleta
     }
 
+    enum VehicleVersionGeneric
+    {
+        Todos
+    }
+
     enum BikesBrands
     {
         HONDA,

@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Data;
 using AutoSystem.Forms;
+using System.Globalization;
 
 namespace AutoSystem.Classes
 {
@@ -363,6 +364,128 @@ namespace AutoSystem.Classes
             }
 
         }
+
+        public static void InsertStockItem(string code,  decimal value,  int amount, string description, string vehicle, string brand, string model, string version)
+        {
+            string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
+            string insertQuery = "INSERT INTO ESTOQUE(CODITEM, VALORITEM, QTDITEM, DESCITEM, VEICULO, MARCA, MODELO, VERSAO ) VALUES(@CODITEM, @VALORITEM, @QTDITEM, @DESCITEM, @VEICULO, @MARCA, @MODELO, @VERSAO);";
+
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand cmdInsert = new SqlCommand(insertQuery, sqlConnection);
+            SqlTransaction transaction = null;
+
+            sqlConnection.Open();
+
+            cmdInsert.Parameters.AddWithValue("@CODITEM", code);
+            cmdInsert.Parameters.AddWithValue("@VALORITEM", value);
+            cmdInsert.Parameters.AddWithValue("@QTDITEM", amount);
+            cmdInsert.Parameters.AddWithValue("@DESCITEM", description);
+            cmdInsert.Parameters.AddWithValue("@VEICULO", vehicle);
+            cmdInsert.Parameters.AddWithValue("@MARCA", brand);
+            cmdInsert.Parameters.AddWithValue("@MODELO", model);
+            cmdInsert.Parameters.AddWithValue("@VERSAO", version);
+
+            try
+            {
+                transaction = sqlConnection.BeginTransaction();
+                cmdInsert.Transaction = transaction;
+
+                cmdInsert.ExecuteScalar();
+                transaction.Commit();
+                MessageBox.Show("Item inserido com sucesso!", "Finalizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                if (transaction != null)
+                {
+                    transaction.Rollback();
+                }
+                MessageBox.Show("Não foi possível completar a transação!", "Erro ao salvar!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception(ex.Message);
+                
+            }
+            finally
+            {
+                if (sqlConnection.State != ConnectionState.Closed) { sqlConnection.Close(); }
+            }
+
+        }
+
+
+        public static void FillComboBoxModel(ComboBox comboBoxBase, ComboBox comboBoxSon )
+        {
+            string cbxValue = comboBoxBase.Text.ToString();
+
+            string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
+            string select = $"SELECT MODELO FROM ESTOQUE WHERE MARCA = '{cbxValue}';";
+
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand cmdSelectData = new SqlCommand(select, sqlConnection);
+            SqlDataAdapter adapter = new SqlDataAdapter(cmdSelectData);
+            DataSet dataSet = new DataSet();
+
+            try
+            {                
+                sqlConnection.Open();
+
+                adapter.SelectCommand = cmdSelectData;
+                adapter.Fill(dataSet);
+                comboBoxSon.DisplayMember = "MODELO";
+                comboBoxSon.ValueMember = $"MODELO";
+                comboBoxSon.DataSource = dataSet.Tables[0];
+                comboBoxSon.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                if (sqlConnection.State != ConnectionState.Closed) { sqlConnection.Close(); }
+            }
+            
+            
+        }
+
+        public static void FillComboBoxVersion(ComboBox comboBoxBase, ComboBox comboBoxSon)
+        {
+            string cbxValue = comboBoxBase.Text.ToString();
+
+            string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
+            string select = $"SELECT VERSAO FROM ESTOQUE WHERE MODELO = '{cbxValue}';";
+
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand cmdSelectData = new SqlCommand(select, sqlConnection);
+            SqlDataAdapter adapter = new SqlDataAdapter(cmdSelectData);
+            DataSet dataSet = new DataSet();
+
+            try
+            {
+                sqlConnection.Open();
+
+                adapter.SelectCommand = cmdSelectData;
+                adapter.Fill(dataSet);
+                comboBoxSon.DisplayMember = "VERSAO";
+                comboBoxSon.ValueMember = $"VERSAO";
+                comboBoxSon.DataSource = dataSet.Tables[0];
+                comboBoxSon.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                if (sqlConnection.State != ConnectionState.Closed) { sqlConnection.Close(); }
+            }
+
+
+        }
+
+
+
 
     }
 }

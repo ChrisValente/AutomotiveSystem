@@ -27,7 +27,11 @@ namespace AutoSystem.Classes
             }
         }
 
-        
+        //internal static void ClearTextBoxe(Control.ControlCollection controls)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
         public static void ClearTextBoxes(Control controls)
         {
             foreach (Control ctl in controls.Controls)
@@ -46,6 +50,17 @@ namespace AutoSystem.Classes
                 if (ctl is ComboBox)
                 {
                     ((ComboBox)ctl).SelectedIndex = -1;
+                }
+            }
+        }
+
+        public static void ClearMaskedBoxes(Control controls)
+        {
+            foreach  (Control ctl in controls.Controls)
+            {
+                if (ctl is MaskedTextBox)
+                {
+                    ((MaskedTextBox)ctl).Clear();
                 }
             }
         }

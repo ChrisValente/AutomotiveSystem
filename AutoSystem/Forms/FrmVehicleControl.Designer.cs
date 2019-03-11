@@ -246,6 +246,7 @@
             this.Name = "FrmVehicleControl";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cadastro de Veículos";
+
             this.tbcVehicle.ResumeLayout(false);
             this.tabReg.ResumeLayout(false);
             this.tabReg.PerformLayout();

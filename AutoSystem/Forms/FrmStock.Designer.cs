@@ -64,6 +64,7 @@
             this.Controls.Add(this.btnConsult);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmStock";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Estoque";
             this.ResumeLayout(false);
 
