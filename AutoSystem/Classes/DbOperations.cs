@@ -414,10 +414,10 @@ namespace AutoSystem.Classes
 
         public static void FillComboBoxModel(ComboBox comboBoxBase, ComboBox comboBoxSon )
         {
-            string cbxValue = comboBoxBase.Text.ToString();
+            string cbxBrand = comboBoxBase.Text.ToString();
 
             string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
-            string select = $"SELECT MODELO FROM ESTOQUE WHERE MARCA = '{cbxValue}';";
+            string select = $"SELECT DISTINCT MODELO FROM ESTOQUE WHERE MARCA = '{cbxBrand}' ORDER BY MODELO;";
 
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             SqlCommand cmdSelectData = new SqlCommand(select, sqlConnection);
@@ -450,10 +450,10 @@ namespace AutoSystem.Classes
 
         public static void FillComboBoxVersion(ComboBox comboBoxBase, ComboBox comboBoxSon)
         {
-            string cbxValue = comboBoxBase.Text.ToString();
+            string cbxModel = comboBoxBase.Text.ToString();
 
             string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
-            string select = $"SELECT VERSAO FROM ESTOQUE WHERE MODELO = '{cbxValue}';";
+            string select = $"SELECT DISTINCT VERSAO FROM ESTOQUE WHERE MODELO = '{cbxModel}' ORDER BY VERSAO;";
 
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             SqlCommand cmdSelectData = new SqlCommand(select, sqlConnection);

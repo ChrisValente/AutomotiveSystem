@@ -25,7 +25,7 @@ namespace AutoSystem
                return true;
             }
         }
-
+        
 
         public static void EmptyTextBoxes(Control controls)
         {
@@ -35,10 +35,9 @@ namespace AutoSystem
                 {
                     if (((TextBox)ctl).Text == string.Empty)
                     {
-                        MessageBox.Show("Todos os campos são de preenchimento obrigatório!", "Atenção!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        break; ;
-                    }    
-                                   
+                        throw new Exception("É necessário preencher todos os campos!");
+                    }
+                                                      
                 }
             }
         }
@@ -49,17 +48,28 @@ namespace AutoSystem
             {
                 if (ctl is ComboBox)
                 {
-                    if (((ComboBox)ctl).SelectedIndex == -1)
+                    if (((ComboBox)ctl).Text == string.Empty)
                     {
-                        MessageBox.Show("Todos os campos são de preenchimento obrigatório!", "Atenção!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        break;
+                        throw new Exception("É necessário preencher todos os campos!");
                     }
                 }
             }
         }
 
 
-
+        public static void EmptyMaskedTextBoxes(Control controls)
+        {
+            foreach (Control ctl in controls.Controls)
+            {
+                if (ctl is MaskedTextBox)
+                {
+                    if (((MaskedTextBox)ctl).Text == string.Empty)
+                    {
+                        throw new Exception("É necessário preencher todos os campos!");
+                    }
+                }
+            }
+        }
 
         
     }

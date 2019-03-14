@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmVehicleControl));
-            this.tbcVehicle = new System.Windows.Forms.TabControl();
+            this.tabVehicle = new System.Windows.Forms.TabControl();
             this.tabReg = new System.Windows.Forms.TabPage();
             this.cbxType = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -47,21 +47,21 @@
             this.cbxSelectVehicleType = new System.Windows.Forms.ComboBox();
             this.BtnDelete = new System.Windows.Forms.Button();
             this.dgvShowCars = new System.Windows.Forms.DataGridView();
-            this.tbcVehicle.SuspendLayout();
+            this.tabVehicle.SuspendLayout();
             this.tabReg.SuspendLayout();
             this.tabConsult.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShowCars)).BeginInit();
             this.SuspendLayout();
             // 
-            // tbcVehicle
+            // tabVehicle
             // 
-            this.tbcVehicle.Controls.Add(this.tabReg);
-            this.tbcVehicle.Controls.Add(this.tabConsult);
-            this.tbcVehicle.Location = new System.Drawing.Point(0, -2);
-            this.tbcVehicle.Name = "tbcVehicle";
-            this.tbcVehicle.SelectedIndex = 0;
-            this.tbcVehicle.Size = new System.Drawing.Size(562, 230);
-            this.tbcVehicle.TabIndex = 0;
+            this.tabVehicle.Controls.Add(this.tabReg);
+            this.tabVehicle.Controls.Add(this.tabConsult);
+            this.tabVehicle.Location = new System.Drawing.Point(0, -2);
+            this.tabVehicle.Name = "tabVehicle";
+            this.tabVehicle.SelectedIndex = 0;
+            this.tabVehicle.Size = new System.Drawing.Size(516, 230);
+            this.tabVehicle.TabIndex = 0;
             // 
             // tabReg
             // 
@@ -78,7 +78,7 @@
             this.tabReg.Location = new System.Drawing.Point(4, 22);
             this.tabReg.Name = "tabReg";
             this.tabReg.Padding = new System.Windows.Forms.Padding(3);
-            this.tabReg.Size = new System.Drawing.Size(554, 204);
+            this.tabReg.Size = new System.Drawing.Size(508, 204);
             this.tabReg.TabIndex = 0;
             this.tabReg.Text = "Registrar";
             this.tabReg.UseVisualStyleBackColor = true;
@@ -241,13 +241,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(507, 219);
-            this.Controls.Add(this.tbcVehicle);
+            this.Controls.Add(this.tabVehicle);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmVehicleControl";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cadastro de Veículos";
-
-            this.tbcVehicle.ResumeLayout(false);
+            this.tabVehicle.ResumeLayout(false);
             this.tabReg.ResumeLayout(false);
             this.tabReg.PerformLayout();
             this.tabConsult.ResumeLayout(false);
@@ -259,7 +258,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tbcVehicle;
+        private System.Windows.Forms.TabControl tabVehicle;
         private System.Windows.Forms.TabPage tabReg;
         private System.Windows.Forms.TabPage tabConsult;
         private System.Windows.Forms.ComboBox cbxType;

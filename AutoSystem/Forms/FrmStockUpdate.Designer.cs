@@ -227,6 +227,7 @@
             this.tbxCodPart.Name = "tbxCodPart";
             this.tbxCodPart.Size = new System.Drawing.Size(146, 20);
             this.tbxCodPart.TabIndex = 1;
+            this.tbxCodPart.Tag = "";
             // 
             // lblQtd
             // 

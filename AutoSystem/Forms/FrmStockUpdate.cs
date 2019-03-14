@@ -20,18 +20,17 @@ namespace AutoSystem.Forms
         {
             InitializeComponent();
 
-            cbxVehicleType.DataSource = Enum.GetNames(typeof(VehicleTypes));
+            cbxVehicleType.DataSource = Enum.GetNames(typeof(VehicleTypes)).OrderBy(x => (string)x).ToList(); 
             cbxVehicleType.SelectedIndex = -1;
-            cbxVehicleVersion.DataSource = Enum.GetNames(typeof(VehicleVersionGeneric));
+            cbxVehicleVersion.DataSource = Enum.GetNames(typeof(VehicleVersionGeneric)).OrderBy(x => (string)x).ToList(); 
             cbxVehicleVersion.SelectedIndex = -1;
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
             Clear.ClearTextBoxes(this.tabInsertItem);
-            Clear.ClearComboBoxes(this.tabInsertItem);
             Clear.ClearMaskedBoxes(this.tabInsertItem);
-            Clear.ClearComboBoxes(this);
+            Clear.ClearComboBoxes(this.tabInsertItem);
             tbxCodPart.Focus();
         }
 
@@ -39,27 +38,32 @@ namespace AutoSystem.Forms
         {
             try
             {
-                string code = tbxCodPart.Text;
+                Validations.EmptyTextBoxes(this.tabInsertItem);                
+                Validations.EmptyMaskedTextBoxes(this.tabInsertItem);
+                Validations.EmptyComboBoxes(this.tabInsertItem);
+                //todo: aparecendo item na cbxVersion quando veiculo é selecionado 
+                //cbx model e version não limpam automaticamente
+
+                string code = tbxCodPart.Text.ToUpper();
                 decimal value = Convert.ToDecimal(mtbValuePart.Text.Replace('.',','));
                 int amount = Convert.ToInt16(tbxQtdPart.Text);
-                string description = tbxDescPart.Text;
-                string vehicle = cbxVehicleType.Text.ToString();
-                string brand = cbxVehicleBrand.Text.ToString();
-                string model = cbxVehicleModel.Text.ToString();
-                string version = cbxVehicleVersion.Text.ToString();
-
-                //IMPLEMENTAR VERIFICAÇÃO DE CAMPOS VAZIOS ANTES DE SALVAR
-
+                string description = tbxDescPart.Text.ToUpper();
+                string vehicle = cbxVehicleType.Text.ToString().ToUpper();
+                string brand = cbxVehicleBrand.Text.ToString().ToUpper();
+                string model = cbxVehicleModel.Text.ToString().ToUpper();
+                string version = cbxVehicleVersion.Text.ToString().ToUpper();
+                
                 DbOperations.InsertStockItem(code, value, amount, description, vehicle, brand, model, version);
                 Clear.ClearComboBoxes(this.tabInsertItem);
                 Clear.ClearTextBoxes(this.tabInsertItem);
                 Clear.ClearMaskedBoxes(this.tabInsertItem);
-                tbxCodPart.Focus();
-                
+                tbxCodPart.Focus();                
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                MessageBox.Show(ex.Message,"Atenção");
+                tbxCodPart.Focus();
+
             }
         }
 
@@ -77,16 +81,16 @@ namespace AutoSystem.Forms
         {
             if (cbxVehicleType.SelectedIndex == 00)
             {
-                cbxVehicleBrand.DataSource = Enum.GetNames(typeof(CarsBrands));
+                cbxVehicleBrand.DataSource = Enum.GetNames(typeof(CarsBrands)).OrderBy(x => (string)x).ToList();
                 cbxVehicleBrand.SelectedIndex = -1;
             }
             else
             {
-                cbxVehicleBrand.DataSource = Enum.GetNames(typeof(BikesBrands));
+                cbxVehicleBrand.DataSource = Enum.GetNames(typeof(BikesBrands)).OrderBy(x => (string)x).ToList();
                 cbxVehicleBrand.SelectedIndex = -1;
             }
         }
-        //CRIAR UM METODO PARA EVITAR EXIBIR EM DUPLICIDADE DE MODELOS, VERSÕES ETC.
+        
         private void cbxVehicleBrand_SelectedIndexChanged(object sender, EventArgs e)
         {
             DbOperations.FillComboBoxModel(cbxVehicleBrand, cbxVehicleModel);

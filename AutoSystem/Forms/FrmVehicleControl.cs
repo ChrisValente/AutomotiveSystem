@@ -17,9 +17,9 @@ namespace AutoSystem.Forms
         public FrmVehicleControl()
         {
             InitializeComponent();
-            cbxType.DataSource = Enum.GetNames(typeof(VehicleTypes));
+            cbxType.DataSource = Enum.GetNames(typeof(VehicleTypes)); 
             cbxType.SelectedIndex = -1;
-            cbxSelectVehicleType.DataSource = Enum.GetNames(typeof(VehicleTypes));
+            cbxSelectVehicleType.DataSource = Enum.GetNames(typeof(VehicleTypes)); 
             cbxSelectVehicleType.SelectedIndex = -1;
         }
 
@@ -27,8 +27,9 @@ namespace AutoSystem.Forms
         {
             try
             {
-                Validations.EmptyComboBoxes(this);
-                Validations.EmptyTextBoxes(this);
+                Validations.EmptyComboBoxes(this.tabVehicle);
+                Validations.EmptyTextBoxes(this.tabVehicle);
+                //todo: verificar o porque está gravando com campos vazios
                 string type = cbxType.Text.ToUpper();
                 string brand = cbxBrand.Text.ToUpper();
                 string model = tbxModel.Text.ToUpper();
@@ -38,12 +39,12 @@ namespace AutoSystem.Forms
                 Clear.ClearComboBoxes(this.tabReg);
                 Clear.ClearTextBoxes(this.tabReg);
                 cbxType.Focus();
-                
-                //todo: CORRIGIR ERRO DE DOIS RETORNOS SEGUIDOS
+
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                MessageBox.Show(ex.Message, "Atenção");
+                cbxType.Focus();
             }
         }
 
@@ -65,12 +66,12 @@ namespace AutoSystem.Forms
         {
             if (cbxType.SelectedIndex == 0)
             {
-                cbxBrand.DataSource = Enum.GetNames(typeof(CarsBrands));
+                cbxBrand.DataSource = Enum.GetNames(typeof(CarsBrands)).OrderBy(x => (string)x).ToList(); 
                 cbxBrand.SelectedIndex = -1;
             }
             else
             {
-                cbxBrand.DataSource = Enum.GetNames(typeof(BikesBrands));
+                cbxBrand.DataSource = Enum.GetNames(typeof(BikesBrands)).OrderBy(x => (string)x).ToList(); 
                 cbxBrand.SelectedIndex = -1;
             }
         }
@@ -79,7 +80,7 @@ namespace AutoSystem.Forms
         {
             try
             {
-                cbxSelectVehicleType.DataSource = Enum.GetNames(typeof(VehicleTypes));
+                cbxSelectVehicleType.DataSource = Enum.GetNames(typeof(VehicleTypes)).OrderBy(x => (string)x).ToList(); 
                 cbxSelectVehicleType.SelectedIndex = -1;
             }
             catch (Exception ex)
