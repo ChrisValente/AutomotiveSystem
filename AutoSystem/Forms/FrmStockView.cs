@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AutoSystem.Classes;
 
 namespace AutoSystem.Forms
 {
@@ -15,6 +16,16 @@ namespace AutoSystem.Forms
         public FrmStockView()
         {
             InitializeComponent();
+        }
+
+        private void btnPartSearch_Click(object sender, EventArgs e)
+        {
+            DbOperations.SearchStockItem(tbxPartSearch, dgvShowParts);
+        }
+
+        private void FrmStockView_Load(object sender, EventArgs e)
+        {
+            DbOperations.GetStockData(dgvShowParts);
         }
     }
 }

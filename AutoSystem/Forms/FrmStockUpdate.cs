@@ -69,6 +69,7 @@ namespace AutoSystem.Forms
 
         private void btnSaveUpd_Click(object sender, EventArgs e)
         {
+            //DbOperations.UpdateStock(tbxCodePartUpd, tbxDescUpd, tbxQtdUpd, mtbValueUpd);
 
         }
 
@@ -99,6 +100,11 @@ namespace AutoSystem.Forms
         private void cbxVehicleModel_SelectedIndexChanged(object sender, EventArgs e)
         {
             DbOperations.FillComboBoxVersion(cbxVehicleModel, cbxVehicleVersion);
+        }
+
+        private void btnSearchPartUpd_Click(object sender, EventArgs e)
+        {
+            DbOperations.FillUpdateStock(tbxCodePartUpd, tbxDescUpd, tbxQtdUpd, mtbValueUpd);
         }
     }
 }

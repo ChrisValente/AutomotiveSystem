@@ -53,6 +53,7 @@
             this.btnPartSearch.TabIndex = 1;
             this.btnPartSearch.Text = "Pesquisar";
             this.btnPartSearch.UseVisualStyleBackColor = true;
+            this.btnPartSearch.Click += new System.EventHandler(this.btnPartSearch_Click);
             // 
             // tbxPartSearch
             // 
@@ -84,6 +85,7 @@
             this.Name = "FrmStockView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Conteúdo em estoque";
+            this.Load += new System.EventHandler(this.FrmStockView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvShowParts)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -256,7 +256,7 @@ namespace AutoSystem.Classes
         public static void InsertNewVehicle(string type, string brand, string model, string version)
         {
             string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
-            string insertVehicle = "INSERT INTO VEICULOSDB (TIPO, MARCA, MODELO, VERSAO) VALUES(@TIPO, @MARCA, @MODELO, @VERSAO);";
+            string insertVehicle = "INSERT INTO VEICULO(TIPO,MARCA,MODELO,VERSAO) VALUES(@TIPO,@MARCA,@MODELO,@VERSAO)";
 
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             SqlCommand cmdInsert = new SqlCommand(insertVehicle, sqlConnection);
@@ -297,7 +297,7 @@ namespace AutoSystem.Classes
         public static void GetVehicleData(DataGridView grid, string type)
         {
             string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
-            string selectData = $"SELECT MARCA, MODELO, VERSAO FROM VEICULOSDB WHERE TIPO = '{type}';";
+            string selectData = $"SELECT MARCA, MODELO, VERSAO FROM VEICULO WHERE TIPO = '{type}';";
 
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand cmdSelect = new SqlCommand(selectData, connection);
@@ -327,7 +327,7 @@ namespace AutoSystem.Classes
                 string brand = grid.CurrentRow.Cells["MARCA"].Value.ToString();
                 string model = grid.CurrentRow.Cells["MODELO"].Value.ToString();
                 string version = grid.CurrentRow.Cells["VERSAO"].Value.ToString();
-                string selectPk = $"SELECT IDVEIDB FROM VEICULOSDB WHERE MARCA = '{brand}'AND MODELO = '{model}' AND VERSAO = '{version}';";
+                string selectPk = $"SELECT IDVEICULO FROM VEICULO WHERE MARCA = '{brand}'AND MODELO = '{model}' AND VERSAO = '{version}';";
                 int pk;
 
                 SqlConnection connection = new SqlConnection(connectionString);
@@ -337,7 +337,7 @@ namespace AutoSystem.Classes
                 connection.Open();
 
                 pk = Convert.ToInt32(cmdSelectPk.ExecuteScalar());
-                string deleteVehicle = $"DELETE FROM VEICULOSDB WHERE IDVEIDB = '{pk}';";
+                string deleteVehicle = $"DELETE FROM VEICULO WHERE IDVEICULO = '{pk}';";
                 SqlCommand cmdDeleteVehicle = new SqlCommand(deleteVehicle, connection);
 
                 try
@@ -346,7 +346,7 @@ namespace AutoSystem.Classes
                     cmdDeleteVehicle.Transaction = transaction;
                     cmdDeleteVehicle.ExecuteScalar();
                     transaction.Commit();
-                    MessageBox.Show("Usuário deletado com sucesso!", "Finalizado", MessageBoxButtons.OK, MessageBoxIcon.Information);                   
+                    MessageBox.Show("Usuário deletado com sucesso!", "Finalizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
@@ -365,32 +365,43 @@ namespace AutoSystem.Classes
 
         }
 
-        public static void InsertStockItem(string code,  decimal value,  int amount, string description, string vehicle, string brand, string model, string version)
+        public static void InsertStockItem(string code, decimal value, int amount, string description, string vehicle, string brand, string model, string version)
         {
             string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
-            string insertQuery = "INSERT INTO ESTOQUE(CODITEM, VALORITEM, QTDITEM, DESCITEM, VEICULO, MARCA, MODELO, VERSAO ) VALUES(@CODITEM, @VALORITEM, @QTDITEM, @DESCITEM, @VEICULO, @MARCA, @MODELO, @VERSAO);";
+            string insertVehicle = "INSERT INTO VEICULO(TIPO,MARCA,MODELO,VERSAO) VALUES(@TIPO,@MARCA,@MODELO,@VERSAO); SELECT SCOPE_IDENTITY();";
+            string insertStock = "INSERT INTO ESTOQUE(CODITEM, VALORITEM, DESCITEM, QTDITEM, ID_VEICULO)  VALUES(@CODITEM, @VALORITEM, @DESCITEM, @QTDITEM, @ID_VEICULO); ";
 
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand cmdInsert = new SqlCommand(insertQuery, sqlConnection);
+            SqlCommand cmdInsertVehicle = new SqlCommand(insertVehicle, sqlConnection);
+            SqlCommand cmdInsertStock = new SqlCommand(insertStock, sqlConnection);
             SqlTransaction transaction = null;
 
             sqlConnection.Open();
 
-            cmdInsert.Parameters.AddWithValue("@CODITEM", code);
-            cmdInsert.Parameters.AddWithValue("@VALORITEM", value);
-            cmdInsert.Parameters.AddWithValue("@QTDITEM", amount);
-            cmdInsert.Parameters.AddWithValue("@DESCITEM", description);
-            cmdInsert.Parameters.AddWithValue("@VEICULO", vehicle);
-            cmdInsert.Parameters.AddWithValue("@MARCA", brand);
-            cmdInsert.Parameters.AddWithValue("@MODELO", model);
-            cmdInsert.Parameters.AddWithValue("@VERSAO", version);
+            cmdInsertVehicle.Parameters.AddWithValue("@TIPO", vehicle);
+            cmdInsertVehicle.Parameters.AddWithValue("@MARCA", brand);
+            cmdInsertVehicle.Parameters.AddWithValue("@MODELO", model);
+            cmdInsertVehicle.Parameters.AddWithValue("@VERSAO", version);
+
+            int fkVehicle = Convert.ToInt32(cmdInsertVehicle.ExecuteScalar());
+
+            cmdInsertStock.Parameters.AddWithValue("@CODITEM", code);
+            cmdInsertStock.Parameters.AddWithValue("@VALORITEM", value);
+            cmdInsertStock.Parameters.AddWithValue("@QTDITEM", amount);
+            cmdInsertStock.Parameters.AddWithValue("@DESCITEM", description);
+            cmdInsertStock.Parameters.AddWithValue("@ID_VEICULO",fkVehicle);
+
+
 
             try
             {
                 transaction = sqlConnection.BeginTransaction();
-                cmdInsert.Transaction = transaction;
 
-                cmdInsert.ExecuteScalar();
+                cmdInsertVehicle.Transaction = transaction;
+                cmdInsertStock.Transaction = transaction;
+
+                cmdInsertStock.ExecuteNonQuery();
+
                 transaction.Commit();
                 MessageBox.Show("Item inserido com sucesso!", "Finalizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -402,7 +413,7 @@ namespace AutoSystem.Classes
                 }
                 MessageBox.Show("Não foi possível completar a transação!", "Erro ao salvar!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new Exception(ex.Message);
-                
+
             }
             finally
             {
@@ -412,21 +423,23 @@ namespace AutoSystem.Classes
         }
 
 
-        public static void FillComboBoxModel(ComboBox comboBoxBase, ComboBox comboBoxSon )
+        public static void FillComboBoxModel(ComboBox comboBoxBase, ComboBox comboBoxSon)
         {
             string cbxBrand = comboBoxBase.Text.ToString();
 
             string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
-            string select = $"SELECT DISTINCT MODELO FROM ESTOQUE WHERE MARCA = '{cbxBrand}' ORDER BY MODELO;";
+            string select = $"SELECT DISTINCT MODELO FROM VEICULO WHERE MARCA = '{cbxBrand}' ORDER BY MODELO;";
 
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             SqlCommand cmdSelectData = new SqlCommand(select, sqlConnection);
             SqlDataAdapter adapter = new SqlDataAdapter(cmdSelectData);
             DataSet dataSet = new DataSet();
 
+            sqlConnection.Open();
+
             try
-            {                
-                sqlConnection.Open();
+            {
+                
 
                 adapter.SelectCommand = cmdSelectData;
                 adapter.Fill(dataSet);
@@ -444,8 +457,8 @@ namespace AutoSystem.Classes
             {
                 if (sqlConnection.State != ConnectionState.Closed) { sqlConnection.Close(); }
             }
-            
-            
+
+
         }
 
         public static void FillComboBoxVersion(ComboBox comboBoxBase, ComboBox comboBoxSon)
@@ -453,7 +466,7 @@ namespace AutoSystem.Classes
             string cbxModel = comboBoxBase.Text.ToString();
 
             string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
-            string select = $"SELECT DISTINCT VERSAO FROM ESTOQUE WHERE MODELO = '{cbxModel}' ORDER BY VERSAO;";
+            string select = $"SELECT DISTINCT VERSAO FROM VEICULO WHERE MODELO = '{cbxModel}' ORDER BY VERSAO;";
 
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             SqlCommand cmdSelectData = new SqlCommand(select, sqlConnection);
@@ -484,8 +497,114 @@ namespace AutoSystem.Classes
 
         }
 
+        public static void FillUpdateStock(TextBox tbxCode, TextBox tbxDesc, TextBox tbxQtd, MaskedTextBox mtbValue)
+        {
+            string textCode = tbxCode.Text;
+            string selectString = $"SELECT DESCITEM, VALORITEM, QTDITEM FROM ESTOQUE WHERE CODITEM = '{textCode}';";
+            string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
 
+            SqlConnection connection = new SqlConnection(connectionString);
+            SqlCommand cmdSelect = new SqlCommand(selectString, connection);
+            SqlDataReader reader = null;
+            DataTable dataTable = new DataTable();
 
+            connection.Open();
+            reader = cmdSelect.ExecuteReader();
 
+            while (reader.Read())
+            {
+                tbxDesc.Text = (reader["DESCITEM"].ToString());
+                tbxQtd.Text = (reader["QTDITEM"].ToString());
+                mtbValue.Text = (reader["VALORITEM"].ToString());
+            }
+
+            if (connection.State != ConnectionState.Closed) { connection.Close(); }
+        }
+
+        public static void GetStockData(DataGridView grid)
+        {
+            string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
+            string selectData = $"SELECT E.CODITEM, E.DESCITEM, V.MARCA, V.MODELO, V.VERSAO, E.QTDITEM, E.VALORITEM FROM ESTOQUE E INNER JOIN VEICULO V ON V.IDVEICULO = E.ID_VEICULO ";
+
+            SqlConnection connection = new SqlConnection(connectionString);           
+            SqlCommand cmdSelect = new SqlCommand(selectData, connection);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            DataSet dataSet = new DataSet();
+
+            connection.Open();
+            cmdSelect.ExecuteNonQuery();
+
+            adapter.SelectCommand = cmdSelect;
+            adapter.Fill(dataSet);
+            grid.DataSource = dataSet;
+            grid.DataMember = dataSet.Tables[0].TableName;
+
+            if (connection.State != ConnectionState.Closed) { connection.Close(); }
+        }
+
+        public static void SearchStockItem(TextBox codeItem, DataGridView grid)
+        {
+            string code = codeItem.Text;
+            string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
+            string selectData = $"SELECT E.CODITEM, E.DESCITEM, V.MARCA, V.MODELO, V.VERSAO, E.QTDITEM, E.VALORITEM FROM ESTOQUE E INNER JOIN VEICULO V ON V.IDVEICULO = E.ID_VEICULO WHERE CODITEM = '{code}' ";
+
+            SqlConnection connection = new SqlConnection(connectionString);
+            SqlCommand cmdSelect = new SqlCommand(selectData, connection);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            DataSet dataSet = new DataSet();
+
+            connection.Open();
+            cmdSelect.ExecuteNonQuery();
+
+            adapter.SelectCommand = cmdSelect;
+            adapter.Fill(dataSet);
+            grid.DataSource = dataSet;
+            grid.DataMember = dataSet.Tables[0].TableName;
+
+            if (connection.State != ConnectionState.Closed) { connection.Close(); }
+        }
+
+        //rever este metodo
+        public static void UpdateStock(TextBox tbxCode, TextBox tbxDesc, TextBox tbxQtd, MaskedTextBox mtbValue)
+        {
+            string code = tbxCode.Text;
+            string description = tbxDesc.Text;
+            int amount = Convert.ToInt16(tbxQtd.Text);
+            decimal value = Convert.ToDecimal(mtbValue.Text);
+            string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
+            string updateQuery = $"UPDATE ESTOQUE SET DESCITEM = '{description}', VALORITEM = '{value}', QTDITEM = '{amount}' WHERE CODITEM = '{code}';";
+            //NÃO ESTÁ REALIZANDO UPDATE, REVER
+            SqlConnection connection = new SqlConnection(connectionString);
+            SqlCommand cmdUpdate = new SqlCommand(updateQuery, connection);
+            SqlTransaction transaction = null;
+
+            connection.Open();
+
+            try
+            {
+                transaction = connection.BeginTransaction();
+                cmdUpdate.Transaction = transaction;
+                cmdUpdate.ExecuteScalar();
+                transaction.Commit();
+                MessageBox.Show("Dados atualizados com sucesso!", "Finalizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                if (transaction != null)
+                {
+                    transaction.Rollback();
+                }
+                MessageBox.Show("Não foi possível completar a operação!", "Erro ao atualizar dados!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                FillUpdateStock(tbxCode, tbxDesc, tbxQtd, mtbValue);
+                if (connection.State != ConnectionState.Closed) { connection.Close(); }
+            }
+
+        }
+
+        
     }
 }

@@ -22,6 +22,7 @@ namespace AutoSystem.Forms
             try
             {
                 FrmStockView stockView = new FrmStockView();
+
                 stockView.Show();
             }
             catch (Exception ex)

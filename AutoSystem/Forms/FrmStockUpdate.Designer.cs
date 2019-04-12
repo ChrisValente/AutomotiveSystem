@@ -50,7 +50,7 @@
             this.lblDesc = new System.Windows.Forms.Label();
             this.lblCod = new System.Windows.Forms.Label();
             this.tabUpdateStock = new System.Windows.Forms.TabPage();
-            this.lvUpdResume = new System.Windows.Forms.ListView();
+            this.lblShowData = new System.Windows.Forms.ListBox();
             this.btnSaveUpd = new System.Windows.Forms.Button();
             this.mtbValueUpd = new System.Windows.Forms.MaskedTextBox();
             this.tbxQtdUpd = new System.Windows.Forms.TextBox();
@@ -59,7 +59,7 @@
             this.lblValueUpd = new System.Windows.Forms.Label();
             this.lblDescUpd = new System.Windows.Forms.Label();
             this.btnSearchPartUpd = new System.Windows.Forms.Button();
-            this.tbxSearchPartUpd = new System.Windows.Forms.TextBox();
+            this.tbxCodePartUpd = new System.Windows.Forms.TextBox();
             this.lblCodUpd = new System.Windows.Forms.Label();
             this.tbcStockUpd.SuspendLayout();
             this.tabInsertItem.SuspendLayout();
@@ -201,18 +201,18 @@
             // 
             // mtbValuePart
             // 
-            this.mtbValuePart.Location = new System.Drawing.Point(106, 158);
+            this.mtbValuePart.Location = new System.Drawing.Point(106, 117);
             this.mtbValuePart.Name = "mtbValuePart";
             this.mtbValuePart.Size = new System.Drawing.Size(146, 20);
-            this.mtbValuePart.TabIndex = 7;
+            this.mtbValuePart.TabIndex = 5;
             this.mtbValuePart.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
             // tbxQtdPart
             // 
-            this.tbxQtdPart.Location = new System.Drawing.Point(106, 117);
+            this.tbxQtdPart.Location = new System.Drawing.Point(106, 158);
             this.tbxQtdPart.Name = "tbxQtdPart";
             this.tbxQtdPart.Size = new System.Drawing.Size(146, 20);
-            this.tbxQtdPart.TabIndex = 5;
+            this.tbxQtdPart.TabIndex = 7;
             // 
             // tbxDescPart
             // 
@@ -232,19 +232,19 @@
             // lblQtd
             // 
             this.lblQtd.AutoSize = true;
-            this.lblQtd.Location = new System.Drawing.Point(35, 120);
+            this.lblQtd.Location = new System.Drawing.Point(35, 161);
             this.lblQtd.Name = "lblQtd";
             this.lblQtd.Size = new System.Drawing.Size(65, 13);
-            this.lblQtd.TabIndex = 4;
+            this.lblQtd.TabIndex = 6;
             this.lblQtd.Text = "Quantidade:";
             // 
             // lblValue
             // 
             this.lblValue.AutoSize = true;
-            this.lblValue.Location = new System.Drawing.Point(35, 161);
+            this.lblValue.Location = new System.Drawing.Point(35, 120);
             this.lblValue.Name = "lblValue";
             this.lblValue.Size = new System.Drawing.Size(34, 13);
-            this.lblValue.TabIndex = 6;
+            this.lblValue.TabIndex = 4;
             this.lblValue.Text = "Valor:";
             // 
             // lblDesc
@@ -267,7 +267,7 @@
             // 
             // tabUpdateStock
             // 
-            this.tabUpdateStock.Controls.Add(this.lvUpdResume);
+            this.tabUpdateStock.Controls.Add(this.lblShowData);
             this.tabUpdateStock.Controls.Add(this.btnSaveUpd);
             this.tabUpdateStock.Controls.Add(this.mtbValueUpd);
             this.tabUpdateStock.Controls.Add(this.tbxQtdUpd);
@@ -276,7 +276,7 @@
             this.tabUpdateStock.Controls.Add(this.lblValueUpd);
             this.tabUpdateStock.Controls.Add(this.lblDescUpd);
             this.tabUpdateStock.Controls.Add(this.btnSearchPartUpd);
-            this.tabUpdateStock.Controls.Add(this.tbxSearchPartUpd);
+            this.tabUpdateStock.Controls.Add(this.tbxCodePartUpd);
             this.tabUpdateStock.Controls.Add(this.lblCodUpd);
             this.tabUpdateStock.Location = new System.Drawing.Point(4, 22);
             this.tabUpdateStock.Name = "tabUpdateStock";
@@ -286,20 +286,20 @@
             this.tabUpdateStock.Text = "Atualizar Estoque";
             this.tabUpdateStock.UseVisualStyleBackColor = true;
             // 
-            // lvUpdResume
+            // lblShowData
             // 
-            this.lvUpdResume.Location = new System.Drawing.Point(376, 11);
-            this.lvUpdResume.Name = "lvUpdResume";
-            this.lvUpdResume.Size = new System.Drawing.Size(208, 144);
-            this.lvUpdResume.TabIndex = 15;
-            this.lvUpdResume.UseCompatibleStateImageBehavior = false;
+            this.lblShowData.FormattingEnabled = true;
+            this.lblShowData.Location = new System.Drawing.Point(397, 9);
+            this.lblShowData.Name = "lblShowData";
+            this.lblShowData.Size = new System.Drawing.Size(187, 147);
+            this.lblShowData.TabIndex = 10;
             // 
             // btnSaveUpd
             // 
             this.btnSaveUpd.Location = new System.Drawing.Point(509, 178);
             this.btnSaveUpd.Name = "btnSaveUpd";
             this.btnSaveUpd.Size = new System.Drawing.Size(75, 23);
-            this.btnSaveUpd.TabIndex = 14;
+            this.btnSaveUpd.TabIndex = 9;
             this.btnSaveUpd.Text = "Salvar";
             this.btnSaveUpd.UseVisualStyleBackColor = true;
             this.btnSaveUpd.Click += new System.EventHandler(this.btnSaveUpd_Click);
@@ -307,24 +307,23 @@
             // mtbValueUpd
             // 
             this.mtbValueUpd.Location = new System.Drawing.Point(88, 94);
-            this.mtbValueUpd.Mask = "$";
             this.mtbValueUpd.Name = "mtbValueUpd";
             this.mtbValueUpd.Size = new System.Drawing.Size(146, 20);
-            this.mtbValueUpd.TabIndex = 13;
+            this.mtbValueUpd.TabIndex = 6;
             // 
             // tbxQtdUpd
             // 
             this.tbxQtdUpd.Location = new System.Drawing.Point(88, 135);
             this.tbxQtdUpd.Name = "tbxQtdUpd";
             this.tbxQtdUpd.Size = new System.Drawing.Size(146, 20);
-            this.tbxQtdUpd.TabIndex = 12;
+            this.tbxQtdUpd.TabIndex = 8;
             // 
             // tbxDescUpd
             // 
             this.tbxDescUpd.Location = new System.Drawing.Point(88, 53);
             this.tbxDescUpd.Name = "tbxDescUpd";
             this.tbxDescUpd.Size = new System.Drawing.Size(146, 20);
-            this.tbxDescUpd.TabIndex = 11;
+            this.tbxDescUpd.TabIndex = 4;
             // 
             // lblQtdUpd
             // 
@@ -332,7 +331,7 @@
             this.lblQtdUpd.Location = new System.Drawing.Point(17, 138);
             this.lblQtdUpd.Name = "lblQtdUpd";
             this.lblQtdUpd.Size = new System.Drawing.Size(65, 13);
-            this.lblQtdUpd.TabIndex = 10;
+            this.lblQtdUpd.TabIndex = 7;
             this.lblQtdUpd.Text = "Quantidade:";
             // 
             // lblValueUpd
@@ -341,7 +340,7 @@
             this.lblValueUpd.Location = new System.Drawing.Point(17, 97);
             this.lblValueUpd.Name = "lblValueUpd";
             this.lblValueUpd.Size = new System.Drawing.Size(34, 13);
-            this.lblValueUpd.TabIndex = 9;
+            this.lblValueUpd.TabIndex = 5;
             this.lblValueUpd.Text = "Valor:";
             // 
             // lblDescUpd
@@ -350,7 +349,7 @@
             this.lblDescUpd.Location = new System.Drawing.Point(17, 56);
             this.lblDescUpd.Name = "lblDescUpd";
             this.lblDescUpd.Size = new System.Drawing.Size(58, 13);
-            this.lblDescUpd.TabIndex = 8;
+            this.lblDescUpd.TabIndex = 3;
             this.lblDescUpd.Text = "Descrição:";
             // 
             // btnSearchPartUpd
@@ -361,13 +360,14 @@
             this.btnSearchPartUpd.TabIndex = 2;
             this.btnSearchPartUpd.Text = "Pesquisar";
             this.btnSearchPartUpd.UseVisualStyleBackColor = true;
+            this.btnSearchPartUpd.Click += new System.EventHandler(this.btnSearchPartUpd_Click);
             // 
-            // tbxSearchPartUpd
+            // tbxCodePartUpd
             // 
-            this.tbxSearchPartUpd.Location = new System.Drawing.Point(88, 11);
-            this.tbxSearchPartUpd.Name = "tbxSearchPartUpd";
-            this.tbxSearchPartUpd.Size = new System.Drawing.Size(146, 20);
-            this.tbxSearchPartUpd.TabIndex = 1;
+            this.tbxCodePartUpd.Location = new System.Drawing.Point(88, 11);
+            this.tbxCodePartUpd.Name = "tbxCodePartUpd";
+            this.tbxCodePartUpd.Size = new System.Drawing.Size(146, 20);
+            this.tbxCodePartUpd.TabIndex = 1;
             // 
             // lblCodUpd
             // 
@@ -413,7 +413,6 @@
         private System.Windows.Forms.TextBox tbxCodPart;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.ListView lvUpdResume;
         private System.Windows.Forms.Button btnSaveUpd;
         private System.Windows.Forms.MaskedTextBox mtbValueUpd;
         private System.Windows.Forms.TextBox tbxQtdUpd;
@@ -422,7 +421,7 @@
         private System.Windows.Forms.Label lblValueUpd;
         private System.Windows.Forms.Label lblDescUpd;
         private System.Windows.Forms.Button btnSearchPartUpd;
-        private System.Windows.Forms.TextBox tbxSearchPartUpd;
+        private System.Windows.Forms.TextBox tbxCodePartUpd;
         private System.Windows.Forms.Label lblCodUpd;
         private System.Windows.Forms.ComboBox cbxVehicleBrand;
         private System.Windows.Forms.ComboBox cbxVehicleType;
@@ -432,5 +431,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbxVehicleVersion;
         private System.Windows.Forms.ComboBox cbxVehicleModel;
+        private System.Windows.Forms.ListBox lblShowData;
     }
 }

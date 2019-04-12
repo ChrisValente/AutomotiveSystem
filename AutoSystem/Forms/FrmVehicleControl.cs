@@ -99,7 +99,6 @@ namespace AutoSystem.Forms
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
         }
@@ -114,7 +113,6 @@ namespace AutoSystem.Forms
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
         }

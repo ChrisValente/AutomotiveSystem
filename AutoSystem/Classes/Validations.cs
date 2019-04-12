@@ -71,6 +71,9 @@ namespace AutoSystem
             }
         }
 
-        
+        public static void AccssesValidation()
+        {
+            //validar o usuário que pode fazer alterações no sistema
+        }
     }
 }
