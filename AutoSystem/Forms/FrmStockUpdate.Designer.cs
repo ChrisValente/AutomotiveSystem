@@ -50,7 +50,6 @@
             this.lblDesc = new System.Windows.Forms.Label();
             this.lblCod = new System.Windows.Forms.Label();
             this.tabUpdateStock = new System.Windows.Forms.TabPage();
-            this.lblShowData = new System.Windows.Forms.ListBox();
             this.btnSaveUpd = new System.Windows.Forms.Button();
             this.mtbValueUpd = new System.Windows.Forms.MaskedTextBox();
             this.tbxQtdUpd = new System.Windows.Forms.TextBox();
@@ -61,6 +60,15 @@
             this.btnSearchPartUpd = new System.Windows.Forms.Button();
             this.tbxCodePartUpd = new System.Windows.Forms.TextBox();
             this.lblCodUpd = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cbxVersionUpd = new System.Windows.Forms.ComboBox();
+            this.cbxModelUpd = new System.Windows.Forms.ComboBox();
+            this.cbxBrandUpd = new System.Windows.Forms.ComboBox();
+            this.cbxVehicleUpd = new System.Windows.Forms.ComboBox();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.tbcStockUpd.SuspendLayout();
             this.tabInsertItem.SuspendLayout();
             this.tabUpdateStock.SuspendLayout();
@@ -267,7 +275,15 @@
             // 
             // tabUpdateStock
             // 
-            this.tabUpdateStock.Controls.Add(this.lblShowData);
+            this.tabUpdateStock.Controls.Add(this.btnDelete);
+            this.tabUpdateStock.Controls.Add(this.label5);
+            this.tabUpdateStock.Controls.Add(this.label6);
+            this.tabUpdateStock.Controls.Add(this.label7);
+            this.tabUpdateStock.Controls.Add(this.label8);
+            this.tabUpdateStock.Controls.Add(this.cbxVersionUpd);
+            this.tabUpdateStock.Controls.Add(this.cbxModelUpd);
+            this.tabUpdateStock.Controls.Add(this.cbxBrandUpd);
+            this.tabUpdateStock.Controls.Add(this.cbxVehicleUpd);
             this.tabUpdateStock.Controls.Add(this.btnSaveUpd);
             this.tabUpdateStock.Controls.Add(this.mtbValueUpd);
             this.tabUpdateStock.Controls.Add(this.tbxQtdUpd);
@@ -286,17 +302,9 @@
             this.tabUpdateStock.Text = "Atualizar Estoque";
             this.tabUpdateStock.UseVisualStyleBackColor = true;
             // 
-            // lblShowData
-            // 
-            this.lblShowData.FormattingEnabled = true;
-            this.lblShowData.Location = new System.Drawing.Point(397, 9);
-            this.lblShowData.Name = "lblShowData";
-            this.lblShowData.Size = new System.Drawing.Size(187, 147);
-            this.lblShowData.TabIndex = 10;
-            // 
             // btnSaveUpd
             // 
-            this.btnSaveUpd.Location = new System.Drawing.Point(509, 178);
+            this.btnSaveUpd.Location = new System.Drawing.Point(518, 246);
             this.btnSaveUpd.Name = "btnSaveUpd";
             this.btnSaveUpd.Size = new System.Drawing.Size(75, 23);
             this.btnSaveUpd.TabIndex = 9;
@@ -306,21 +314,21 @@
             // 
             // mtbValueUpd
             // 
-            this.mtbValueUpd.Location = new System.Drawing.Point(88, 94);
+            this.mtbValueUpd.Location = new System.Drawing.Point(88, 125);
             this.mtbValueUpd.Name = "mtbValueUpd";
             this.mtbValueUpd.Size = new System.Drawing.Size(146, 20);
             this.mtbValueUpd.TabIndex = 6;
             // 
             // tbxQtdUpd
             // 
-            this.tbxQtdUpd.Location = new System.Drawing.Point(88, 135);
+            this.tbxQtdUpd.Location = new System.Drawing.Point(88, 166);
             this.tbxQtdUpd.Name = "tbxQtdUpd";
             this.tbxQtdUpd.Size = new System.Drawing.Size(146, 20);
             this.tbxQtdUpd.TabIndex = 8;
             // 
             // tbxDescUpd
             // 
-            this.tbxDescUpd.Location = new System.Drawing.Point(88, 53);
+            this.tbxDescUpd.Location = new System.Drawing.Point(88, 84);
             this.tbxDescUpd.Name = "tbxDescUpd";
             this.tbxDescUpd.Size = new System.Drawing.Size(146, 20);
             this.tbxDescUpd.TabIndex = 4;
@@ -328,7 +336,7 @@
             // lblQtdUpd
             // 
             this.lblQtdUpd.AutoSize = true;
-            this.lblQtdUpd.Location = new System.Drawing.Point(17, 138);
+            this.lblQtdUpd.Location = new System.Drawing.Point(17, 169);
             this.lblQtdUpd.Name = "lblQtdUpd";
             this.lblQtdUpd.Size = new System.Drawing.Size(65, 13);
             this.lblQtdUpd.TabIndex = 7;
@@ -337,7 +345,7 @@
             // lblValueUpd
             // 
             this.lblValueUpd.AutoSize = true;
-            this.lblValueUpd.Location = new System.Drawing.Point(17, 97);
+            this.lblValueUpd.Location = new System.Drawing.Point(17, 128);
             this.lblValueUpd.Name = "lblValueUpd";
             this.lblValueUpd.Size = new System.Drawing.Size(34, 13);
             this.lblValueUpd.TabIndex = 5;
@@ -346,7 +354,7 @@
             // lblDescUpd
             // 
             this.lblDescUpd.AutoSize = true;
-            this.lblDescUpd.Location = new System.Drawing.Point(17, 56);
+            this.lblDescUpd.Location = new System.Drawing.Point(17, 87);
             this.lblDescUpd.Name = "lblDescUpd";
             this.lblDescUpd.Size = new System.Drawing.Size(58, 13);
             this.lblDescUpd.TabIndex = 3;
@@ -354,7 +362,7 @@
             // 
             // btnSearchPartUpd
             // 
-            this.btnSearchPartUpd.Location = new System.Drawing.Point(270, 9);
+            this.btnSearchPartUpd.Location = new System.Drawing.Point(255, 40);
             this.btnSearchPartUpd.Name = "btnSearchPartUpd";
             this.btnSearchPartUpd.Size = new System.Drawing.Size(75, 23);
             this.btnSearchPartUpd.TabIndex = 2;
@@ -364,7 +372,7 @@
             // 
             // tbxCodePartUpd
             // 
-            this.tbxCodePartUpd.Location = new System.Drawing.Point(88, 11);
+            this.tbxCodePartUpd.Location = new System.Drawing.Point(88, 42);
             this.tbxCodePartUpd.Name = "tbxCodePartUpd";
             this.tbxCodePartUpd.Size = new System.Drawing.Size(146, 20);
             this.tbxCodePartUpd.TabIndex = 1;
@@ -372,11 +380,93 @@
             // lblCodUpd
             // 
             this.lblCodUpd.AutoSize = true;
-            this.lblCodUpd.Location = new System.Drawing.Point(17, 18);
+            this.lblCodUpd.Location = new System.Drawing.Point(17, 45);
             this.lblCodUpd.Name = "lblCodUpd";
             this.lblCodUpd.Size = new System.Drawing.Size(43, 13);
             this.lblCodUpd.TabIndex = 0;
             this.lblCodUpd.Text = "Código:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(353, 86);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(40, 13);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Marca:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(353, 127);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(45, 13);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "Modelo:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(353, 168);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(40, 13);
+            this.label7.TabIndex = 22;
+            this.label7.Text = "Versão";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(353, 44);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(47, 13);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "Veículo:";
+            // 
+            // cbxVersionUpd
+            // 
+            this.cbxVersionUpd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbxVersionUpd.FormattingEnabled = true;
+            this.cbxVersionUpd.Location = new System.Drawing.Point(427, 165);
+            this.cbxVersionUpd.Name = "cbxVersionUpd";
+            this.cbxVersionUpd.Size = new System.Drawing.Size(166, 21);
+            this.cbxVersionUpd.TabIndex = 23;
+            // 
+            // cbxModelUpd
+            // 
+            this.cbxModelUpd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbxModelUpd.FormattingEnabled = true;
+            this.cbxModelUpd.Location = new System.Drawing.Point(427, 124);
+            this.cbxModelUpd.Name = "cbxModelUpd";
+            this.cbxModelUpd.Size = new System.Drawing.Size(166, 21);
+            this.cbxModelUpd.TabIndex = 21;
+            // 
+            // cbxBrandUpd
+            // 
+            this.cbxBrandUpd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbxBrandUpd.FormattingEnabled = true;
+            this.cbxBrandUpd.Location = new System.Drawing.Point(427, 83);
+            this.cbxBrandUpd.Name = "cbxBrandUpd";
+            this.cbxBrandUpd.Size = new System.Drawing.Size(166, 21);
+            this.cbxBrandUpd.TabIndex = 19;
+            // 
+            // cbxVehicleUpd
+            // 
+            this.cbxVehicleUpd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbxVehicleUpd.FormattingEnabled = true;
+            this.cbxVehicleUpd.Location = new System.Drawing.Point(427, 41);
+            this.cbxVehicleUpd.Name = "cbxVehicleUpd";
+            this.cbxVehicleUpd.Size = new System.Drawing.Size(166, 21);
+            this.cbxVehicleUpd.TabIndex = 17;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(427, 246);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 24;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // FrmStockUpdate
             // 
@@ -431,6 +521,14 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbxVehicleVersion;
         private System.Windows.Forms.ComboBox cbxVehicleModel;
-        private System.Windows.Forms.ListBox lblShowData;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cbxVersionUpd;
+        private System.Windows.Forms.ComboBox cbxModelUpd;
+        private System.Windows.Forms.ComboBox cbxBrandUpd;
+        private System.Windows.Forms.ComboBox cbxVehicleUpd;
+        private System.Windows.Forms.Button btnDelete;
     }
 }

@@ -28,10 +28,18 @@ namespace AutoSystem.Forms
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            Clear.ClearTextBoxes(this.tabInsertItem);
-            Clear.ClearMaskedBoxes(this.tabInsertItem);
-            Clear.ClearComboBoxes(this.tabInsertItem);
-            tbxCodPart.Focus();
+            
+            try
+            {
+                Clear.ClearTextBoxes(this.tabInsertItem);
+                Clear.ClearMaskedBoxes(this.tabInsertItem);
+                Clear.ClearComboBoxes(this.tabInsertItem);
+                tbxCodPart.Focus();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -63,14 +71,20 @@ namespace AutoSystem.Forms
             {
                 MessageBox.Show(ex.Message,"Atenção");
                 tbxCodPart.Focus();
-
             }
         }
 
         private void btnSaveUpd_Click(object sender, EventArgs e)
         {
-            //DbOperations.UpdateStock(tbxCodePartUpd, tbxDescUpd, tbxQtdUpd, mtbValueUpd);
+            try
+            {
+                DbOperations.UpdateStock(tbxCodePartUpd, tbxDescUpd, tbxQtdUpd, mtbValueUpd,cbxVehicleUpd,cbxBrandUpd,cbxModelUpd,cbxVersionUpd);
+            }
+            catch (Exception ex)
+            {
 
+                throw new Exception(ex.Message);
+            }
         }
 
         private void FrmStockUpdate_Load(object sender, EventArgs e)
@@ -93,18 +107,51 @@ namespace AutoSystem.Forms
         }
         
         private void cbxVehicleBrand_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DbOperations.FillComboBoxModel(cbxVehicleBrand, cbxVehicleModel);
+        {      
+            try
+            {
+                DbOperations.FillComboBoxModel(cbxVehicleBrand, cbxVehicleModel);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         private void cbxVehicleModel_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DbOperations.FillComboBoxVersion(cbxVehicleModel, cbxVehicleVersion);
+            try
+            {
+                DbOperations.FillComboBoxVersion(cbxVehicleModel, cbxVehicleVersion);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         private void btnSearchPartUpd_Click(object sender, EventArgs e)
+        {            
+            try
+            {
+                DbOperations.FillUpdateStock(tbxCodePartUpd, tbxDescUpd, tbxQtdUpd, mtbValueUpd, cbxVehicleUpd, cbxBrandUpd, cbxModelUpd, cbxVersionUpd);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
         {
-            DbOperations.FillUpdateStock(tbxCodePartUpd, tbxDescUpd, tbxQtdUpd, mtbValueUpd);
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

@@ -297,7 +297,7 @@ namespace AutoSystem.Classes
         public static void GetVehicleData(DataGridView grid, string type)
         {
             string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
-            string selectData = $"SELECT MARCA, MODELO, VERSAO FROM VEICULO WHERE TIPO = '{type}';";
+            string selectData = $"SELECT MARCA, MODELO, VERSAO FROM VEICULO WHERE TIPO = '{type}' ORDER BY 'MARCA';";
 
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand cmdSelect = new SqlCommand(selectData, connection);
@@ -497,10 +497,11 @@ namespace AutoSystem.Classes
 
         }
 
-        public static void FillUpdateStock(TextBox tbxCode, TextBox tbxDesc, TextBox tbxQtd, MaskedTextBox mtbValue)
+        public static void FillUpdateStock(TextBox tbxCode, TextBox tbxDesc, TextBox tbxQtd, MaskedTextBox mtbValue, ComboBox cbxVehicle, ComboBox cbxBrand, ComboBox cbxModel, ComboBox cbxversion)
         {
             string textCode = tbxCode.Text;
-            string selectString = $"SELECT DESCITEM, VALORITEM, QTDITEM FROM ESTOQUE WHERE CODITEM = '{textCode}';";
+            //string selectString = $"SELECT DESCITEM, VALORITEM, QTDITEM FROM ESTOQUE WHERE CODITEM = '{textCode}';";
+            string selectString = $"SELECT DESCITEM, VALORITEM, QTDITEM, TIPO, MARCA, MODELO, VERSAO FROM ESTOQUE E INNER JOIN VEICULO V ON V.IDVEICULO = E.ID_VEICULO WHERE CODITEM = '{textCode}';";
             string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
 
             SqlConnection connection = new SqlConnection(connectionString);
@@ -516,6 +517,10 @@ namespace AutoSystem.Classes
                 tbxDesc.Text = (reader["DESCITEM"].ToString());
                 tbxQtd.Text = (reader["QTDITEM"].ToString());
                 mtbValue.Text = (reader["VALORITEM"].ToString());
+                cbxVehicle.Text = (reader["TIPO"].ToString());
+                cbxBrand.Text = (reader["MARCA"].ToString());
+                cbxModel.Text = (reader["MODELO"].ToString());
+                cbxversion.Text = (reader["VERSAO"].ToString());
             }
 
             if (connection.State != ConnectionState.Closed) { connection.Close(); }
@@ -564,16 +569,21 @@ namespace AutoSystem.Classes
             if (connection.State != ConnectionState.Closed) { connection.Close(); }
         }
 
-        //rever este metodo
-        public static void UpdateStock(TextBox tbxCode, TextBox tbxDesc, TextBox tbxQtd, MaskedTextBox mtbValue)
+        //rever este metodo: Corrigir o bug da pontuação no valor que gera erro na entrada de dados do DB
+        public static void UpdateStock(TextBox tbxCode, TextBox tbxDesc, TextBox tbxQtd, MaskedTextBox mtbValue, ComboBox cbxVehicle, ComboBox cbxBrand, ComboBox cbxModel, ComboBox cbxVersion)
         {
             string code = tbxCode.Text;
             string description = tbxDesc.Text;
-            int amount = Convert.ToInt16(tbxQtd.Text);
+            int amount = Convert.ToInt32(tbxQtd.Text);
             decimal value = Convert.ToDecimal(mtbValue.Text);
+            string vehicle = cbxVehicle.Text;
+            string brand = cbxBrand.Text;
+            string model = cbxModel.Text;
+            string version = cbxVersion.Text;
             string connectionString = @"Data Source=ceres-pc\sqlexpress;Initial Catalog=AutomotiveDb;Integrated Security=True";
-            string updateQuery = $"UPDATE ESTOQUE SET DESCITEM = '{description}', VALORITEM = '{value}', QTDITEM = '{amount}' WHERE CODITEM = '{code}';";
-            //NÃO ESTÁ REALIZANDO UPDATE, REVER
+            //string updateQuery = $"UPDATE ESTOQUE SET DESCITEM = '{description}', VALORITEM = '{value}', QTDITEM = '{amount}' WHERE CODITEM = '{code}';";
+            string updateQuery = $"UPDATE ESTOQUE SET DESCITEM = '{description}', VALORITEM = '{value}', QTDITEM = '{amount}', TIPO = '{vehicle}', MARCA = '{brand}', MODELO = '{model}', VERSAO = '{version}' WHERE CODITEM = '{code}';";
+            //Corrigir a query de update das comboboxes
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand cmdUpdate = new SqlCommand(updateQuery, connection);
             SqlTransaction transaction = null;
@@ -599,12 +609,16 @@ namespace AutoSystem.Classes
             }
             finally
             {
-                FillUpdateStock(tbxCode, tbxDesc, tbxQtd, mtbValue);
+                FillUpdateStock(tbxCode, tbxDesc, tbxQtd, mtbValue,cbxVehicle,cbxBrand,cbxModel,cbxVersion);
                 if (connection.State != ConnectionState.Closed) { connection.Close(); }
             }
 
         }
 
+        public static void DeleteStock()
+        {
+
+        }
         
     }
 }
